@@ -16,7 +16,6 @@
 		DDF5CF392982EFC2006B3433 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF5CF382982EFC2006B3433 /* NetworkManager.swift */; };
 		DDF5CF3B2982F029006B3433 /* CharactersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF5CF3A2982F029006B3433 /* CharactersModel.swift */; };
 		DDF5CF3D2982F2BF006B3433 /* URLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF5CF3C2982F2BF006B3433 /* URLManager.swift */; };
-		DDF5CF3F2982F34B006B3433 /* CharacterList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDF5CF3E2982F34B006B3433 /* CharacterList.storyboard */; };
 		DDF5CF4A2982F865006B3433 /* MortyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF5CF482982F865006B3433 /* MortyTableViewCell.swift */; };
 		DDF5CF4B2982F865006B3433 /* MortyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDF5CF492982F865006B3433 /* MortyTableViewCell.xib */; };
 		DDF5CF4E2982FB33006B3433 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = DDF5CF4D2982FB33006B3433 /* Kingfisher */; };
@@ -34,7 +33,6 @@
 		DDF5CF382982EFC2006B3433 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		DDF5CF3A2982F029006B3433 /* CharactersModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersModel.swift; sourceTree = "<group>"; };
 		DDF5CF3C2982F2BF006B3433 /* URLManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLManager.swift; sourceTree = "<group>"; };
-		DDF5CF3E2982F34B006B3433 /* CharacterList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CharacterList.storyboard; sourceTree = "<group>"; };
 		DDF5CF482982F865006B3433 /* MortyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MortyTableViewCell.swift; sourceTree = "<group>"; };
 		DDF5CF492982F865006B3433 /* MortyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MortyTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -74,7 +72,6 @@
 				DDF5CF442982F6C3006B3433 /* CharacterList */,
 				DDF5CF242982EEDC006B3433 /* AppDelegate.swift */,
 				DDF5CF262982EEDC006B3433 /* SceneDelegate.swift */,
-				DDF5CF2A2982EEDC006B3433 /* Main.storyboard */,
 				DDF5CF2D2982EEDD006B3433 /* Assets.xcassets */,
 				DDF5CF2F2982EEDD006B3433 /* LaunchScreen.storyboard */,
 				DDF5CF322982EEDD006B3433 /* Info.plist */,
@@ -87,7 +84,7 @@
 			children = (
 				DDF5CF452982F6DF006B3433 /* View */,
 				DDF5CF282982EEDC006B3433 /* ViewController.swift */,
-				DDF5CF3E2982F34B006B3433 /* CharacterList.storyboard */,
+				DDF5CF2A2982EEDC006B3433 /* Main.storyboard */,
 			);
 			path = CharacterList;
 			sourceTree = "<group>";
@@ -185,7 +182,6 @@
 			files = (
 				DDF5CF312982EEDD006B3433 /* LaunchScreen.storyboard in Resources */,
 				DDF5CF2E2982EEDD006B3433 /* Assets.xcassets in Resources */,
-				DDF5CF3F2982F34B006B3433 /* CharacterList.storyboard in Resources */,
 				DDF5CF2C2982EEDC006B3433 /* Main.storyboard in Resources */,
 				DDF5CF4B2982F865006B3433 /* MortyTableViewCell.xib in Resources */,
 			);

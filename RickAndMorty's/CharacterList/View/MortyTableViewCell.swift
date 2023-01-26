@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 
 class MortyTableViewCell: UITableViewCell {
-    
+
     // MARK: - Outlets
     
     @IBOutlet weak var mortyView: UIView!
@@ -35,13 +35,13 @@ class MortyTableViewCell: UITableViewCell {
         characterStatusLabel.text = model?.status
         characterImage.kf.setImage(with: URL(string: model?.image ?? ""), completionHandler:  { [weak self] result in
             guard let self = self else { return }
-            switch result {
-            case .success(let value):
-                self.characterImage.image = value.image
-            case .failure(_):
-                self.characterImage.image = UIImage(systemName: "person.crop.circle.badge.exclamationmark")
-            }
+                switch result {
+                        case .success(let value):
+                    self.characterImage.image = value.image
+                        case .failure(_):
+                                        self.characterImage.image = UIImage(systemName: "person.crop.circle.badge.exclamationmark")
+                        }
         })
     }
-    
+
 }

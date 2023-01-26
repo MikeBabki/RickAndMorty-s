@@ -13,6 +13,13 @@
 		DDF5CF2C2982EEDC006B3433 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDF5CF2A2982EEDC006B3433 /* Main.storyboard */; };
 		DDF5CF2E2982EEDD006B3433 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDF5CF2D2982EEDD006B3433 /* Assets.xcassets */; };
 		DDF5CF312982EEDD006B3433 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDF5CF2F2982EEDD006B3433 /* LaunchScreen.storyboard */; };
+		DDF5CF392982EFC2006B3433 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF5CF382982EFC2006B3433 /* NetworkManager.swift */; };
+		DDF5CF3B2982F029006B3433 /* CharactersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF5CF3A2982F029006B3433 /* CharactersModel.swift */; };
+		DDF5CF3D2982F2BF006B3433 /* URLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF5CF3C2982F2BF006B3433 /* URLManager.swift */; };
+		DDF5CF3F2982F34B006B3433 /* CharacterList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDF5CF3E2982F34B006B3433 /* CharacterList.storyboard */; };
+		DDF5CF4A2982F865006B3433 /* MortyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF5CF482982F865006B3433 /* MortyTableViewCell.swift */; };
+		DDF5CF4B2982F865006B3433 /* MortyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDF5CF492982F865006B3433 /* MortyTableViewCell.xib */; };
+		DDF5CF4E2982FB33006B3433 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = DDF5CF4D2982FB33006B3433 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +31,12 @@
 		DDF5CF2D2982EEDD006B3433 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DDF5CF302982EEDD006B3433 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DDF5CF322982EEDD006B3433 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DDF5CF382982EFC2006B3433 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		DDF5CF3A2982F029006B3433 /* CharactersModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersModel.swift; sourceTree = "<group>"; };
+		DDF5CF3C2982F2BF006B3433 /* URLManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLManager.swift; sourceTree = "<group>"; };
+		DDF5CF3E2982F34B006B3433 /* CharacterList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CharacterList.storyboard; sourceTree = "<group>"; };
+		DDF5CF482982F865006B3433 /* MortyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MortyTableViewCell.swift; sourceTree = "<group>"; };
+		DDF5CF492982F865006B3433 /* MortyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MortyTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDF5CF4E2982FB33006B3433 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,15 +70,53 @@
 		DDF5CF232982EEDC006B3433 /* RickAndMorty's */ = {
 			isa = PBXGroup;
 			children = (
+				DDF5CF4F2982FD58006B3433 /* Network */,
+				DDF5CF442982F6C3006B3433 /* CharacterList */,
 				DDF5CF242982EEDC006B3433 /* AppDelegate.swift */,
 				DDF5CF262982EEDC006B3433 /* SceneDelegate.swift */,
-				DDF5CF282982EEDC006B3433 /* ViewController.swift */,
 				DDF5CF2A2982EEDC006B3433 /* Main.storyboard */,
 				DDF5CF2D2982EEDD006B3433 /* Assets.xcassets */,
 				DDF5CF2F2982EEDD006B3433 /* LaunchScreen.storyboard */,
 				DDF5CF322982EEDD006B3433 /* Info.plist */,
 			);
 			path = "RickAndMorty's";
+			sourceTree = "<group>";
+		};
+		DDF5CF442982F6C3006B3433 /* CharacterList */ = {
+			isa = PBXGroup;
+			children = (
+				DDF5CF452982F6DF006B3433 /* View */,
+				DDF5CF282982EEDC006B3433 /* ViewController.swift */,
+				DDF5CF3E2982F34B006B3433 /* CharacterList.storyboard */,
+			);
+			path = CharacterList;
+			sourceTree = "<group>";
+		};
+		DDF5CF452982F6DF006B3433 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DDF5CF482982F865006B3433 /* MortyTableViewCell.swift */,
+				DDF5CF492982F865006B3433 /* MortyTableViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DDF5CF4F2982FD58006B3433 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				DDF5CF512982FD75006B3433 /* Model */,
+				DDF5CF3C2982F2BF006B3433 /* URLManager.swift */,
+				DDF5CF382982EFC2006B3433 /* NetworkManager.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		DDF5CF512982FD75006B3433 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DDF5CF3A2982F029006B3433 /* CharactersModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +135,9 @@
 			dependencies = (
 			);
 			name = "RickAndMorty's";
+			packageProductDependencies = (
+				DDF5CF4D2982FB33006B3433 /* Kingfisher */,
+			);
 			productName = "RickAndMorty's";
 			productReference = DDF5CF212982EEDC006B3433 /* RickAndMorty's.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +166,9 @@
 				Base,
 			);
 			mainGroup = DDF5CF182982EEDC006B3433;
+			packageReferences = (
+				DDF5CF4C2982FB33006B3433 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = DDF5CF222982EEDC006B3433 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -127,7 +185,9 @@
 			files = (
 				DDF5CF312982EEDD006B3433 /* LaunchScreen.storyboard in Resources */,
 				DDF5CF2E2982EEDD006B3433 /* Assets.xcassets in Resources */,
+				DDF5CF3F2982F34B006B3433 /* CharacterList.storyboard in Resources */,
 				DDF5CF2C2982EEDC006B3433 /* Main.storyboard in Resources */,
+				DDF5CF4B2982F865006B3433 /* MortyTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,9 +198,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDF5CF392982EFC2006B3433 /* NetworkManager.swift in Sources */,
+				DDF5CF4A2982F865006B3433 /* MortyTableViewCell.swift in Sources */,
 				DDF5CF292982EEDC006B3433 /* ViewController.swift in Sources */,
 				DDF5CF252982EEDC006B3433 /* AppDelegate.swift in Sources */,
+				DDF5CF3B2982F029006B3433 /* CharactersModel.swift in Sources */,
 				DDF5CF272982EEDC006B3433 /* SceneDelegate.swift in Sources */,
+				DDF5CF3D2982F2BF006B3433 /* URLManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,6 +422,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DDF5CF4C2982FB33006B3433 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DDF5CF4D2982FB33006B3433 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DDF5CF4C2982FB33006B3433 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DDF5CF192982EEDC006B3433 /* Project object */;
 }

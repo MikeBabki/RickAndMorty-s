@@ -9,7 +9,7 @@ import Foundation
 
 class URLManager {
     
-    static let urlString = "https://rickandmortyapi.com/api/character/?page=19"
+    static let urlString = "https://rickandmortyapi.com/api"
     
     static func rickURLCreator(page: Int) -> String {
        return urlString + "/character/?page=\(page)"

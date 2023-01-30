@@ -15,68 +15,85 @@ class ViewController: UIViewController {
     
     // MARK: - Private properties
     
-    private var data = [CharactersModel]()
+    private var data: [CharacterSet]? = []
     private var pageNumber = 1
     private var service = NetworkManager()
     
+    // MARK: - Lifecylce
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         loadData()
         initializeSetup()
-    
+        applyStyle()
     }
-    // MARK: - Actions (refreshing)
     
-    func loadData() {
+    // MARK: - Private methods
+    
+    private func loadData() {
         service.getResult(page: pageNumber) { (searchResponse) in
             switch searchResponse {
-                
             case .success(let data):
                 DispatchQueue.main.async {
                     self.pageNumber += 1
-                    data?.forEach {
-                        self.data.append($0)
-                    }
+                    self.data = data?.results
                     self.tableView.reloadData()
                 }
-            case .failure(let error):
-                      print("Hop")
+            case .failure(_):
+                    print("Hop")
             }
         }
     }
     
-    
     private func initializeSetup() {
-        let nib = UINib(nibName: "MortyTableViewCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "mortyID")
+        
+        tableView.register(UINib(nibName: "MortyTableViewCell", bundle: nil), forCellReuseIdentifier: "mortyID")
         
         tableView.dataSource = self
         tableView.delegate = self
     }
-
 }
 
+    // MARK: - Extention for TableView DataSource
+
 extension ViewController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        return data?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "mortyID", for: indexPath) as! MortyTableViewCell
-        
-        let cellData = data.map{$0.results}
-        let model = cellData[indexPath.row]
-        
-        cell.configure(withModel: model)
+
+        cell.configure(withModel: data?[indexPath.row])
         
         return cell
     }
-    
-    
 }
+
+// MARK: - Extention for TableView Delegate
 
 extension ViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let storyboard = UIStoryboard(name: "CharacterDescription", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "MortyDescript") as! CharacterDescription
+        
+        vc.characterAttributes = data?[indexPath.row]
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
+
+// MARK: - Extention for styling
+
+extension ViewController {
+    
+    func applyStyle() {
+        tableView.separatorStyle = .none
+    }
+}
+
+

@@ -17,31 +17,32 @@ class MortyTableViewCell: UITableViewCell {
     @IBOutlet weak var characterStatusLabel: UILabel!
     @IBOutlet weak var characterImage: UIImageView!
     
+    // MARK: - Public properties
+    
     var model: CharacterSet?
     
     // MARK: - LifeCycle
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
     }
     
-    // MARK: - Methods
+    // MARK: - Configure cell
     
     func configure(withModel model: CharacterSet?) {
-        
         self.model = model
-        
+        mortyView.layer.cornerRadius = 10
+        selectionStyle = .none
         characterNameLabel.text = model?.name
-        characterStatusLabel.text = model?.status
-        characterImage.kf.setImage(with: URL(string: model?.image ?? ""), completionHandler:  { [weak self] result in
-            guard let self = self else { return }
-                switch result {
-                        case .success(let value):
-                    self.characterImage.image = value.image
-                        case .failure(_):
-                                        self.characterImage.image = UIImage(systemName: "person.crop.circle.badge.exclamationmark")
-                        }
-        })
-    }
 
+        if let url = URL(string: model?.image ?? "") {
+            characterImage.kf.indicatorType = .activity
+            characterImage.kf.setImage(with: url)
+        }
+        else {
+            characterImage.image = UIImage(systemName: "person.crop.circle.badge.exclamationmark")
+        }
+    }
+    
 }

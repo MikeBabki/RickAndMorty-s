@@ -3,7 +3,7 @@
 //  RickAndMorty's
 //
 //  Created by Макар Тюрморезов on 26.01.2023.
-//
+//мое
 
 import UIKit
 

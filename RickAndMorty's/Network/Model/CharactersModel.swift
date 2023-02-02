@@ -23,8 +23,17 @@ struct CharacterSet: Decodable {
     var gender: String?
     var origin: Origin
     var image: String?
+    var location: Location
+}
+struct Location: Decodable {
+    
+    var name: String?
+    var url: String?
+    
 }
 struct Origin: Decodable {
     var name: String?
     var url: String?
 }
+
+

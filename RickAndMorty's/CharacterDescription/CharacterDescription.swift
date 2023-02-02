@@ -12,6 +12,8 @@ class CharacterDescription: UIViewController {
 
     // MARK: - Outlets
 
+    @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var genderDescriptLabel: UILabel!
     @IBOutlet weak var genderLabel: UILabel!
     @IBOutlet weak var genderView: UIView!
@@ -43,15 +45,8 @@ class CharacterDescription: UIViewController {
         super.viewDidLoad()
         
         setupText()
-        characterImage.layer.cornerRadius = 20
-        
-        if let url = URL(string: characterAttributes?.image ?? "") {
-            characterImage?.kf.indicatorType = .activity
-            characterImage?.kf.setImage(with: url)
-        }
-        else {
-            characterImage?.image = UIImage(systemName: "person.crop.circle.badge.exclamationmark")
-        }
+        setupUI()
+        loadData()
     }
 }
 
@@ -83,4 +78,55 @@ extension CharacterDescription {
         genderLabel.text = characterAttributes?.gender
     }
 }
+    // MARK: - Extention for elements setup
 
+extension CharacterDescription {
+    
+    func setupUI() {
+        characterImage.layer.cornerRadius = 20
+        characterImage.layer.borderWidth = 1
+        idView.backgroundColor = .systemMint
+        statusView.backgroundColor = .white
+        speciesView.backgroundColor = .systemYellow
+        typeView.backgroundColor = .systemGray2
+        genderView.backgroundColor = .systemPurple
+        
+        idView.layer.cornerRadius = 10
+        statusView.layer.cornerRadius = 10
+        speciesView.layer.cornerRadius = 10
+        typeView.layer.cornerRadius = 10
+        genderView.layer.cornerRadius = 10
+        
+        idView.layer.borderWidth = 1
+        statusView.layer.borderWidth = 1
+        speciesView.layer.borderWidth = 1
+        typeView.layer.borderWidth = 1
+        genderView.layer.borderWidth = 1
+        
+        idDescriptLabel.font = .systemFont(ofSize: 21)
+        idLabel.font = .systemFont(ofSize: 21)
+        statusDescriptLabel.font = .systemFont(ofSize: 21)
+        statusLabel.font = .systemFont(ofSize: 21)
+        speciesDescriptLabel.font = .systemFont(ofSize: 21)
+        speciecLabel.font = .systemFont(ofSize: 21)
+        typeDescriptLabel.font = .systemFont(ofSize: 21)
+        typeLabel.font = .systemFont(ofSize: 21)
+        genderDescriptLabel.font = .systemFont(ofSize: 21)
+        genderLabel.font = .systemFont(ofSize: 21)
+    }
+}
+
+    // MARK: - Extention for load data
+
+extension CharacterDescription {
+
+    func loadData() {
+        if let url = URL(string: characterAttributes?.image ?? "") {
+            characterImage?.kf.indicatorType = .activity
+            characterImage?.kf.setImage(with: url)
+        }
+        else {
+            characterImage?.image = UIImage(systemName: "person.crop.circle.badge.exclamationmark")
+        }
+    }
+}

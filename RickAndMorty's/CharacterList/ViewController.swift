@@ -12,12 +12,14 @@ class ViewController: UIViewController {
     // MARK: - Outlet
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var characterLabel: UILabel!
     
     // MARK: - Private properties
     
     private var data: [CharacterSet]? = []
     private var pageNumber = 1
     private var service = NetworkManager()
+    private var networkCharacters = NetworkManager()
     
     // MARK: - Lifecylce
     
@@ -27,23 +29,29 @@ class ViewController: UIViewController {
         loadData()
         initializeSetup()
         applyStyle()
-    }
+        setupText()
+        
+}
     
     // MARK: - Private methods
     
     private func loadData() {
-        service.getResult(page: pageNumber) { (searchResponse) in
-            switch searchResponse {
-            case .success(let data):
-                DispatchQueue.main.async {
-                    self.pageNumber += 1
-                    self.data = data?.results
-                    self.tableView.reloadData()
+            self.service.getResult(page: self.pageNumber) { (searchResponse) in
+                switch searchResponse {
+                case .success(let data):
+                    guard let data = data else { return }
+                    DispatchQueue.main.async {
+                            self.pageNumber += 1
+//                            self.data! += data.results!
+                            self.data?.append(contentsOf: data.results ?? [])
+                            self.tableView.reloadData()
+                    }
+
+                case .failure(_):
+                        print("Hop")
                 }
-            case .failure(_):
-                    print("Hop")
             }
-        }
+        
     }
     
     private func initializeSetup() {
@@ -54,7 +62,6 @@ class ViewController: UIViewController {
         tableView.delegate = self
     }
 }
-
     // MARK: - Extention for TableView DataSource
 
 extension ViewController: UITableViewDataSource {
@@ -71,6 +78,14 @@ extension ViewController: UITableViewDataSource {
         
         return cell
     }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        
+        if offsetY > contentHeight - scrollView.frame.height {
+            loadData()
+        }
+    }
 }
 
 // MARK: - Extention for TableView Delegate
@@ -81,8 +96,13 @@ extension ViewController: UITableViewDelegate {
         
         let storyboard = UIStoryboard(name: "CharacterDescription", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "MortyDescript") as! CharacterDescription
+        let backItem = UIBarButtonItem(title: "", style: .bordered, target: nil, action: nil)
         
         vc.characterAttributes = data?[indexPath.row]
+        
+        vc.title = data?[indexPath.row].status
+        
+        navigationItem.backBarButtonItem = backItem
         navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -93,7 +113,20 @@ extension ViewController {
     
     func applyStyle() {
         tableView.separatorStyle = .none
+        view.backgroundColor = .systemGreen
+        tableView.layer.cornerRadius = 10
+        tableView.showsVerticalScrollIndicator = false
     }
 }
 
+// MARK: - Extention for setup text
 
+extension ViewController {
+    
+    func setupText() {
+        characterLabel.font = .boldSystemFont(ofSize: 24)
+        characterLabel.textAlignment = .center
+        characterLabel.text = "Rick & Morty characters!"
+        characterLabel.backgroundColor = .systemGreen
+    }
+}

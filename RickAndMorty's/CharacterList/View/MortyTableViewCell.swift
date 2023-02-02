@@ -26,6 +26,8 @@ class MortyTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        setupText()
+        setupUI()
     }
     
     // MARK: - Configure cell
@@ -35,7 +37,7 @@ class MortyTableViewCell: UITableViewCell {
         mortyView.layer.cornerRadius = 10
         selectionStyle = .none
         characterNameLabel.text = model?.name
-
+        characterStatusLabel.text = model?.status
         if let url = URL(string: model?.image ?? "") {
             characterImage.kf.indicatorType = .activity
             characterImage.kf.setImage(with: url)
@@ -45,4 +47,26 @@ class MortyTableViewCell: UITableViewCell {
         }
     }
     
+}
+    // MARK: - Extention for setup text
+
+extension MortyTableViewCell {
+    
+    func setupText() {
+        characterNameLabel.font = UIFont.boldSystemFont(ofSize: 25)
+        characterStatusLabel.font = UIFont.systemFont(ofSize: 22)
+        characterNameLabel.textAlignment = .center
+        characterStatusLabel.textAlignment = .center
+    }
+}
+// MARK: - Extention for setup UI
+
+extension MortyTableViewCell {
+    
+    func setupUI() {
+        mortyView.backgroundColor = .systemGray5
+        characterImage.layer.borderWidth = 2
+        
+        
+    }
 }

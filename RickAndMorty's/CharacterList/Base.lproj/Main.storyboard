@@ -17,20 +17,30 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Q13-k2-LjV">
-                                <rect key="frame" x="16" y="60" width="382" height="820"/>
+                                <rect key="frame" x="16" y="93" width="382" height="787"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dasdsadasdasdasd" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="URV-sl-lJb">
+                                <rect key="frame" x="40" y="44" width="334" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="URV-sl-lJb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="Vpd-oT-k27"/>
+                            <constraint firstItem="URV-sl-lJb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="WqE-oB-1oH"/>
                             <constraint firstAttribute="bottom" secondItem="Q13-k2-LjV" secondAttribute="bottom" constant="16" id="b6h-sc-h4V"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Q13-k2-LjV" secondAttribute="trailing" constant="16" id="f7B-q3-qQj"/>
-                            <constraint firstItem="Q13-k2-LjV" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="hDA-y0-h7d"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="URV-sl-lJb" secondAttribute="trailing" constant="40" id="fIU-3Q-ClE"/>
+                            <constraint firstItem="Q13-k2-LjV" firstAttribute="top" secondItem="URV-sl-lJb" secondAttribute="bottom" constant="20" id="fQg-ko-pdu"/>
                             <constraint firstItem="Q13-k2-LjV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="yRW-Sq-zCQ"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="characterLabel" destination="URV-sl-lJb" id="NZN-zE-fR7"/>
                         <outlet property="tableView" destination="Q13-k2-LjV" id="rpd-aU-liJ"/>
                     </connections>
                 </viewController>

@@ -15,11 +15,16 @@ class ViewController: UIViewController {
     @IBOutlet weak var characterLabel: UILabel!
     
     // MARK: - Private properties
-    
+    private var dataCopy = [CharacterSet]()
     private var data: [CharacterSet]? = []
     private var pageNumber = 1
     private var service = NetworkManager()
-    private var networkCharacters = NetworkManager()
+    private var filteredCharacters = [CharacterSet]()
+    private var searchBarIsEmpty: Bool {
+        guard let text = searchController.searchBar.text else { return false }
+        return text.isEmpty
+    }
+    let searchController = UISearchController(searchResultsController: nil)
     
     // MARK: - Lifecylce
     
@@ -30,6 +35,7 @@ class ViewController: UIViewController {
         initializeSetup()
         applyStyle()
         setupText()
+        searchControlSetup()
         
 }
     
@@ -42,7 +48,6 @@ class ViewController: UIViewController {
                     guard let data = data else { return }
                     DispatchQueue.main.async {
                             self.pageNumber += 1
-//                            self.data! += data.results!
                             self.data?.append(contentsOf: data.results ?? [])
                             self.tableView.reloadData()
                     }
@@ -51,7 +56,28 @@ class ViewController: UIViewController {
                         print("Hop")
                 }
             }
-        
+    }
+    
+    private func loadChar(name: String) {
+        self.service.getCharName(name: name) { (searchResponse) in
+                switch searchResponse {
+                case .success(let data):
+                    guard let data = data else { return }
+                    DispatchQueue.main.async {
+                        self.filteredCharacters.append(contentsOf: data.results ?? [])
+                        self.tableView.reloadData()
+                        
+                        self.dataCopy = data.results ?? []
+                        if data.results == nil {
+                            self.characterLabel.text = "Characters not found"
+                        } else {
+                            self.characterLabel.text = "Rick & Morty characters!"
+                        }
+                    }
+                case .failure(_):
+                        print("Hop")
+                }
+            }
     }
     
     private func initializeSetup() {
@@ -60,6 +86,7 @@ class ViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
+        searchController.searchResultsUpdater = self
     }
 }
     // MARK: - Extention for TableView DataSource
@@ -67,17 +94,22 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data?.count ?? 0
+         
+        return (searchController.isActive ? filteredCharacters : data )?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "mortyID", for: indexPath) as! MortyTableViewCell
-
-        cell.configure(withModel: data?[indexPath.row])
         
+        if self.searchController.isActive, searchController.searchBar.text?.count ?? 0 >= 3 {
+            cell.configure(withModel: filteredCharacters[indexPath.row])
+        } else {
+            cell.configure(withModel: data?[indexPath.row])
+        }
         return cell
+
     }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
@@ -98,10 +130,14 @@ extension ViewController: UITableViewDelegate {
         let vc = storyboard.instantiateViewController(withIdentifier: "MortyDescript") as! CharacterDescription
         let backItem = UIBarButtonItem(title: "", style: .bordered, target: nil, action: nil)
         
-        vc.characterAttributes = data?[indexPath.row]
-        
-        vc.title = data?[indexPath.row].status
-        
+        if searchController.searchBar.text?.count ?? 0 >= 2 {
+            vc.characterAttributes = dataCopy[indexPath.row]
+            vc.title = dataCopy[indexPath.row].status
+        } else {
+            vc.characterAttributes = data?[indexPath.row]
+            vc.title = data?[indexPath.row].status
+        }
+        navigationItem.searchController = searchController
         navigationItem.backBarButtonItem = backItem
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -127,6 +163,36 @@ extension ViewController {
         characterLabel.font = .boldSystemFont(ofSize: 24)
         characterLabel.textAlignment = .center
         characterLabel.text = "Rick & Morty characters!"
+        
         characterLabel.backgroundColor = .systemGreen
+    }
+}
+// MARK: - Extention for SearchBar (active if symbols count > 3)
+
+extension ViewController: UISearchResultsUpdating {
+
+func updateSearchResults(for searchController: UISearchController) {
+
+    let text = searchController.searchBar.text?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+    
+    if searchController.searchBar.text?.count ?? 0 >= 3 {
+        filteredCharacters = []
+        loadChar(name: text ?? "")
+        }
+    }
+}
+
+// MARK: - Extention for SearchBar's visuality
+
+extension ViewController {
+    
+    func searchControlSetup() {
+        navigationItem.hidesSearchBarWhenScrolling = false
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+        
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Find a character"
     }
 }

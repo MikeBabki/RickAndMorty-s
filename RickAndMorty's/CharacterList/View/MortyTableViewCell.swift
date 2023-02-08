@@ -66,7 +66,5 @@ extension MortyTableViewCell {
     func setupUI() {
         mortyView.backgroundColor = .systemGray5
         characterImage.layer.borderWidth = 2
-        
-        
     }
 }

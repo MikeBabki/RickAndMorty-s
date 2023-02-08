@@ -10,7 +10,7 @@ import Foundation
 struct CharactersModel: Decodable {
     
     var results: [CharacterSet]?
-
+    
 }
 
 struct CharacterSet: Decodable {
@@ -24,6 +24,7 @@ struct CharacterSet: Decodable {
     var origin: Origin
     var image: String?
     var location: Location
+//    var error: Error
 }
 struct Location: Decodable {
     
@@ -36,4 +37,8 @@ struct Origin: Decodable {
     var url: String?
 }
 
+//struct Error: Decodable {
+//    
+//    var error: String?
+//}
 

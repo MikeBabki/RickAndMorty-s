@@ -24,4 +24,21 @@ class NetworkManager {
             }
         }.resume()
     }
+    
+    func getCharName(name: String, completion: @escaping(Result<CharactersModel?, Error>) -> Void)
+    {
+        let url = URL(string: URLManager.charNameFinder(name: name))
+        URLSession.shared.dataTask(with: url!) { data, _, error in
+            guard let data = data else {
+                completion(.failure(error!))
+                return
+            }
+            do {
+                let result = try JSONDecoder().decode(CharactersModel.self, from: data)
+                completion(.success(result))
+            } catch {
+                completion(.failure(error))
+            }
+        }.resume()
+    }
 }

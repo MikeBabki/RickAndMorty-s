@@ -71,7 +71,7 @@ class ViewController: UIViewController {
                         if data.results == nil {
                             self.characterLabel.text = "Characters not found"
                         } else {
-                            self.characterLabel.text = "Rick & Morty characters!"
+                            self.characterLabel.text = "Rick & Morty Characters!"
                         }
                     }
                 case .failure(_):

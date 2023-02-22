@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 
 class MortyTableViewCell: UITableViewCell {
-
+    
     // MARK: - Outlets
     
     @IBOutlet weak var mortyView: UIView!
@@ -48,7 +48,7 @@ class MortyTableViewCell: UITableViewCell {
     }
     
 }
-    // MARK: - Extention for setup text
+// MARK: - Extention for setup text
 
 extension MortyTableViewCell {
     
@@ -64,7 +64,7 @@ extension MortyTableViewCell {
 extension MortyTableViewCell {
     
     func setupUI() {
-        mortyView.backgroundColor = .systemGray5
+        mortyView.backgroundColor = .systemGray4
         characterImage.layer.borderWidth = 2
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class ViewController: UIViewController {
     
@@ -15,11 +16,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var characterLabel: UILabel!
     
     // MARK: - Private properties
-    private var dataCopy = [CharacterSet]()
+    
+    private var searchDataCharacters = [CharacterSet]()
     private var data: [CharacterSet]? = []
     private var pageNumber = 1
     private var service = NetworkManager()
-    private var filteredCharacters = [CharacterSet]()
     private var searchBarIsEmpty: Bool {
         guard let text = searchController.searchBar.text else { return false }
         return text.isEmpty
@@ -36,57 +37,64 @@ class ViewController: UIViewController {
         applyStyle()
         setupText()
         searchControlSetup()
-        
 }
     
     // MARK: - Private methods
     
     private func loadData() {
-            self.service.getResult(page: self.pageNumber) { (searchResponse) in
-                switch searchResponse {
-                case .success(let data):
-                    guard let data = data else { return }
-                    DispatchQueue.main.async {
-                            self.pageNumber += 1
-                            self.data?.append(contentsOf: data.results ?? [])
-                            self.tableView.reloadData()
-                    }
-
-                case .failure(_):
-                        print("Hop")
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        self.service.getResult(page: self.pageNumber) { (searchResponse) in
+            
+            switch searchResponse {
+            case .success(let data):
+                guard let data = data else { return }
+                
+                DispatchQueue.main.async {
+                    MBProgressHUD.hide(for: self.view, animated: true)
+                    self.pageNumber += 1
+                    self.data?.append(contentsOf: data.results ?? [])
+                    self.tableView.reloadData()
+                    self.characterLabel.text = "Rick & Morty Characters!"
                 }
+                
+            case .failure(_):
+                MBProgressHUD.hide(for: self.view, animated: true)
+                print("Hop")
             }
+        }
     }
     
     private func loadChar(name: String) {
+        MBProgressHUD.showAdded(to: self.view, animated: true)
         self.service.getCharName(name: name) { (searchResponse) in
-                switch searchResponse {
-                case .success(let data):
-                    guard let data = data else { return }
-                    DispatchQueue.main.async {
-                        self.filteredCharacters.append(contentsOf: data.results ?? [])
-                        self.tableView.reloadData()
-                        
-                        self.dataCopy = data.results ?? []
-                        if data.results == nil {
-                            self.characterLabel.text = "Characters not found"
-                        } else {
-                            self.characterLabel.text = "Rick & Morty Characters!"
-                        }
+            switch searchResponse {
+            case .success(let data):
+                guard let data = data else { return }
+                DispatchQueue.main.async {
+                    MBProgressHUD.hide(for: self.view, animated: true)
+                    self.searchDataCharacters.append(contentsOf: data.results ?? [])
+                    self.tableView.reloadData()
+                    
+                    if data.results == nil {
+                        self.characterLabel.text = "Characters not found"
+                    } else {
+                        self.characterLabel.text = "Rick & Morty Characters!"
                     }
-                case .failure(_):
-                        print("Hop")
                 }
+            case .failure(_):
+                MBProgressHUD.hide(for: self.view, animated: true)
+                print("Hop")
             }
+        }
     }
     
     private func initializeSetup() {
         
         tableView.register(UINib(nibName: "MortyTableViewCell", bundle: nil), forCellReuseIdentifier: "mortyID")
-        
         tableView.dataSource = self
         tableView.delegate = self
         searchController.searchResultsUpdater = self
+        
     }
 }
     // MARK: - Extention for TableView DataSource
@@ -95,14 +103,14 @@ extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
          
-        return (searchController.isActive ? filteredCharacters : data )?.count ?? 0
+        return (searchController.isActive ? searchDataCharacters : data )?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "mortyID", for: indexPath) as! MortyTableViewCell
         
         if self.searchController.isActive, searchController.searchBar.text?.count ?? 0 >= 3 {
-            cell.configure(withModel: filteredCharacters[indexPath.row])
+            cell.configure(withModel: searchDataCharacters[indexPath.row])
         } else {
             cell.configure(withModel: data?[indexPath.row])
         }
@@ -131,8 +139,8 @@ extension ViewController: UITableViewDelegate {
         let backItem = UIBarButtonItem(title: "", style: .bordered, target: nil, action: nil)
         
         if searchController.searchBar.text?.count ?? 0 >= 2 {
-            vc.characterAttributes = dataCopy[indexPath.row]
-            vc.title = dataCopy[indexPath.row].status
+            vc.characterAttributes = searchDataCharacters[indexPath.row]
+            vc.title = searchDataCharacters[indexPath.row].status
         } else {
             vc.characterAttributes = data?[indexPath.row]
             vc.title = data?[indexPath.row].status
@@ -148,10 +156,15 @@ extension ViewController: UITableViewDelegate {
 extension ViewController {
     
     func applyStyle() {
-        tableView.separatorStyle = .none
         view.backgroundColor = .systemGreen
+        tableView.separatorStyle = .none
         tableView.layer.cornerRadius = 10
         tableView.showsVerticalScrollIndicator = false
+        searchController.searchBar.tintColor = UIColor.red
+        searchController.searchBar.barTintColor = UIColor.red
+//        var textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
+//
+//        textFieldInsideSearchBar?.textColor = UIColor.yellow
     }
 }
 
@@ -163,24 +176,29 @@ extension ViewController {
         characterLabel.font = .boldSystemFont(ofSize: 24)
         characterLabel.textAlignment = .center
         characterLabel.text = "Rick & Morty characters!"
-        
         characterLabel.backgroundColor = .systemGreen
     }
 }
+
 // MARK: - Extention for SearchBar (active if symbols count > 3)
 
 extension ViewController: UISearchResultsUpdating {
-
-func updateSearchResults(for searchController: UISearchController) {
-
-    let text = searchController.searchBar.text?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
     
-    if searchController.searchBar.text?.count ?? 0 >= 3 {
-        filteredCharacters = []
-        loadChar(name: text ?? "")
+    func updateSearchResults(for searchController: UISearchController) {
+        
+        let text = searchController.searchBar.text?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        
+        if searchController.searchBar.text?.count ?? 0 >= 3 {
+            searchDataCharacters = []
+            loadChar(name: text ?? "")
+        }
+        if !searchController.isActive {
+            searchDataCharacters = []
+            loadData()
         }
     }
 }
+
 
 // MARK: - Extention for SearchBar's visuality
 

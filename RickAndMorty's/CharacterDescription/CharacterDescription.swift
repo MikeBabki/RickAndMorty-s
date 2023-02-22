@@ -55,7 +55,8 @@ class CharacterDescription: UIViewController {
 extension CharacterDescription {
  
     func setupText() {
-        
+        view.backgroundColor = .systemGreen
+        scrollView.showsVerticalScrollIndicator = false
         nameLabel.text = characterAttributes?.name
         
         idDescriptLabel.text = "ID"

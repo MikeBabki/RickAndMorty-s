@@ -22,11 +22,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let mainView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FirstStoryboard") as! ViewController
         
-           let nav1 = UINavigationController(rootViewController: ViewController())
-           nav1.viewControllers = [mainView]
+        let nav1 = UINavigationController(rootViewController: ViewController())
+        nav1.viewControllers = [mainView]
         
-           self.window!.rootViewController = nav1
-           self.window?.makeKeyAndVisible()
+        nav1.navigationBar.barTintColor = UIColor.systemGreen
+        
+        self.window!.rootViewController = nav1
+        self.window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

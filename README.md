@@ -1,29 +1,25 @@
 # RickAndMorty-s
 <p align="center">
-      <img src="https://ibb.co/rbQmfrY" alt=Project Logo Url" width="726">
+      <img src="https://ic.wampi.ru/2023/02/23/137838-art-graficeskij_dizajn-multfilm-televideniye-grafika-1920x1080.jpg" alt=Project Logo Url" width="726">
 </p>
 
-<p align="center">
-   <img src="" alt="Unity Version">
-   <img src="" alt="Game Version">
-   <img src="" alt="License">
+
 </p>
 
 ## About
 
-About Text Here
-
-## Documentation
-
-Documentation Here
+Приложение постранично отображает персонажей «Рик и Морти». При тапе на персонажа открывается экран с дополнительной информацией о персонаже. 
 
 ## Distribute
+Были использованы сторонние библиотеки, такие как
+KingFisher
+MBProgressHUD
 
-- [Service Name](Page Link)
+Используемая API -
+https://rickandmortyapi.com
 
 
 ## Developers
 
-- [Delevoper Name](GitHub Profile Link)
+Makar Tyurmorezov
 
-## License

@@ -141,6 +141,7 @@ extension ViewController: UITableViewDelegate {
         if searchController.searchBar.text?.count ?? 0 >= 2 {
             vc.characterAttributes = searchDataCharacters[indexPath.row]
             vc.title = searchDataCharacters[indexPath.row].status
+//            searchDataCharacters[indexPath.row].status
         } else {
             vc.characterAttributes = data?[indexPath.row]
             vc.title = data?[indexPath.row].status
@@ -162,9 +163,13 @@ extension ViewController {
         tableView.showsVerticalScrollIndicator = false
         searchController.searchBar.tintColor = UIColor.red
         searchController.searchBar.barTintColor = UIColor.red
+        
+
 //        var textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
 //
-//        textFieldInsideSearchBar?.textColor = UIColor.yellow
+//        textFieldInsideSearchBar?.textColor = UIColor.red
+//        searchController.searchBar.barStyle = .blackTranslucent
+
     }
 }
 
@@ -198,7 +203,6 @@ extension ViewController: UISearchResultsUpdating {
         }
     }
 }
-
 
 // MARK: - Extention for SearchBar's visuality
 

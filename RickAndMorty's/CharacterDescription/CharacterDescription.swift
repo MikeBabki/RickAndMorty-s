@@ -9,9 +9,9 @@ import UIKit
 import Kingfisher
 
 class CharacterDescription: UIViewController {
-
+    
     // MARK: - Outlets
-
+    
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var genderDescriptLabel: UILabel!
@@ -38,7 +38,7 @@ class CharacterDescription: UIViewController {
     // MARK: - Public properties
     
     var characterAttributes: CharacterSet?
-   
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -53,7 +53,7 @@ class CharacterDescription: UIViewController {
 // MARK: - Extention for text setup
 
 extension CharacterDescription {
- 
+    
     func setupText() {
         view.backgroundColor = .systemGreen
         scrollView.showsVerticalScrollIndicator = false
@@ -64,6 +64,7 @@ extension CharacterDescription {
         
         statusDescriptLabel.text = "Status"
         statusLabel.text = characterAttributes?.status
+//        statusLabel.text = Status: \(status)
         
         speciesDescriptLabel.text = "Species"
         speciecLabel.text = characterAttributes?.species
@@ -79,7 +80,7 @@ extension CharacterDescription {
         genderLabel.text = characterAttributes?.gender
     }
 }
-    // MARK: - Extention for elements setup
+// MARK: - Extention for elements setup
 
 extension CharacterDescription {
     
@@ -117,10 +118,10 @@ extension CharacterDescription {
     }
 }
 
-    // MARK: - Extention for load data
+// MARK: - Extention for load data
 
 extension CharacterDescription {
-
+    
     func loadData() {
         if let url = URL(string: characterAttributes?.image ?? "") {
             characterImage?.kf.indicatorType = .activity

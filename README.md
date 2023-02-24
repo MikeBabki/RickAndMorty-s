@@ -8,10 +8,10 @@
 
 ## App visual
 <p align "left">
-      <img src="https://i.postimg.cc/rFB50hSQ/2023-02-23-15-07-47.png" alt=Project Logo Url" width="235">
-      <img src="https://im.wampi.ru/2023/02/23/SNIMOK-EKRANA-2023-02-23-V-15.06.05.png" alt=Project Logo Url" width="235">
-      <img src="https://i.postimg.cc/L8FZ6JpW/2023-02-23-15-06-24.png" alt=Project Logo Url" width="235">  
-      <img src="https://i.postimg.cc/W1V6YWht/2023-02-23-15-06-46.png" alt=Project Logo Url" width="235">  
+      <img src="https://ie.wampi.ru/2023/02/24/SNIMOK-EKRANA-2023-02-24-V-12.05.19.png" alt=Project Logo Url" width="245">
+      <img src="https://ltdfoto.ru/images/2023/02/24/SNIMOK-EKRANA-2023-02-24-V-12.05.27.png" alt=Project Logo Url" width="245">
+      <img src="https://i.postimg.cc/TwF3gCWx/2023-02-24-12-05-38.png" alt=Project Logo Url" width="245">  
+      <img src="https://i.postimg.cc/8cLNWDSd/2023-02-24-12-05-51.png" alt=Project Logo Url" width="245">  
  
 
 ## Distribute

@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     
     // MARK: - Private properties
     
+    private var pagesNum = CharactersModel()
     private var searchDataCharacters = [CharacterSet]()
     private var data: [CharacterSet]? = []
     private var pageNumber = 1
@@ -37,7 +38,7 @@ class ViewController: UIViewController {
         applyStyle()
         setupText()
         searchControlSetup()
-}
+    }
     
     // MARK: - Private methods
     
@@ -55,11 +56,12 @@ class ViewController: UIViewController {
                     self.data?.append(contentsOf: data.results ?? [])
                     self.tableView.reloadData()
                     self.characterLabel.text = "Rick & Morty Characters!"
+                    self.pagesNum = data
+                    
                 }
                 
             case .failure(_):
                 MBProgressHUD.hide(for: self.view, animated: true)
-                print("Hop")
             }
         }
     }
@@ -83,7 +85,6 @@ class ViewController: UIViewController {
                 }
             case .failure(_):
                 MBProgressHUD.hide(for: self.view, animated: true)
-                print("Hop")
             }
         }
     }
@@ -97,13 +98,21 @@ class ViewController: UIViewController {
         
     }
 }
-    // MARK: - Extention for TableView DataSource
+// MARK: - Extention for TableView DataSource
 
 extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-         
+        
         return (searchController.isActive ? searchDataCharacters : data )?.count ?? 0
+    }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if pageNumber == (pagesNum.info?.pages ?? 0) + 1 {
+        } else {
+            if indexPath.row == (data?.count ?? 18) - 2 {
+                loadData()
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -115,16 +124,7 @@ extension ViewController: UITableViewDataSource {
             cell.configure(withModel: data?[indexPath.row])
         }
         return cell
-
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offsetY = scrollView.contentOffset.y
-        let contentHeight = scrollView.contentSize.height
         
-        if offsetY > contentHeight - scrollView.frame.height {
-            loadData()
-        }
     }
 }
 
@@ -141,7 +141,7 @@ extension ViewController: UITableViewDelegate {
         if searchController.searchBar.text?.count ?? 0 >= 2 {
             vc.characterAttributes = searchDataCharacters[indexPath.row]
             vc.title = searchDataCharacters[indexPath.row].status
-//            searchDataCharacters[indexPath.row].status
+            //            searchDataCharacters[indexPath.row].status
         } else {
             vc.characterAttributes = data?[indexPath.row]
             vc.title = data?[indexPath.row].status
@@ -164,12 +164,6 @@ extension ViewController {
         searchController.searchBar.tintColor = UIColor.red
         searchController.searchBar.barTintColor = UIColor.red
         
-
-//        var textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
-//
-//        textFieldInsideSearchBar?.textColor = UIColor.red
-//        searchController.searchBar.barStyle = .blackTranslucent
-
     }
 }
 

@@ -9,8 +9,12 @@ import Foundation
 
 struct CharactersModel: Decodable {
     
+    var info: CharInformation?
     var results: [CharacterSet]?
     
+}
+struct CharInformation: Decodable {
+    var pages: Int
 }
 
 struct CharacterSet: Decodable {

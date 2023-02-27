@@ -23,7 +23,7 @@ MBProgressHUD
 https://rickandmortyapi.com
 
 
-## Developers
+## Developer
 
 Makar Tyurmorezov
 

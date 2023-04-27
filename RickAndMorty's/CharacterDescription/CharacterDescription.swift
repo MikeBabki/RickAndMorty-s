@@ -58,13 +58,13 @@ extension CharacterDescription {
         view.backgroundColor = .systemGreen
         scrollView.showsVerticalScrollIndicator = false
         nameLabel.text = characterAttributes?.name
+        nameLabel.textColor = .black
         
         idDescriptLabel.text = "ID"
         idLabel.text = String(Int((characterAttributes?.id)!))
         
         statusDescriptLabel.text = "Status"
         statusLabel.text = characterAttributes?.status
-//        statusLabel.text = Status: \(status)
         
         speciesDescriptLabel.text = "Species"
         speciecLabel.text = characterAttributes?.species
@@ -106,15 +106,29 @@ extension CharacterDescription {
         genderView.layer.borderWidth = 1
         
         idDescriptLabel.font = .systemFont(ofSize: 21)
+        idDescriptLabel.textColor = .black
         idLabel.font = .systemFont(ofSize: 21)
+        idLabel.textColor = .black
+        
         statusDescriptLabel.font = .systemFont(ofSize: 21)
+        statusDescriptLabel.textColor = .black
         statusLabel.font = .systemFont(ofSize: 21)
+        statusLabel.textColor = .black
+        
         speciesDescriptLabel.font = .systemFont(ofSize: 21)
+        speciesDescriptLabel.textColor = .black
         speciecLabel.font = .systemFont(ofSize: 21)
+        speciecLabel.textColor = .black
+        
         typeDescriptLabel.font = .systemFont(ofSize: 21)
+        typeDescriptLabel.textColor = .black
         typeLabel.font = .systemFont(ofSize: 21)
+        typeLabel.textColor = .black
+        
         genderDescriptLabel.font = .systemFont(ofSize: 21)
+        genderDescriptLabel.textColor = .black
         genderLabel.font = .systemFont(ofSize: 21)
+        genderLabel.textColor = .black
     }
 }
 

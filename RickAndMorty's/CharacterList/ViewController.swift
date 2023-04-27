@@ -95,10 +95,9 @@ class ViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         searchController.searchResultsUpdater = self
-        
     }
 }
-// MARK: - Extention for TableView DataSource
+    
 
 extension ViewController: UITableViewDataSource {
     
@@ -124,7 +123,6 @@ extension ViewController: UITableViewDataSource {
             cell.configure(withModel: data?[indexPath.row])
         }
         return cell
-        
     }
 }
 
